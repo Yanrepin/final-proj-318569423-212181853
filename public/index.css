@@ -1,0 +1,48 @@
+body{ 
+    font-family: Arial, Helvetica, sans-serif;
+    
+    background-image: url('pictures/shop\ back.webp');
+}
+.continer-fluid{
+    margin-top: 2.5%;
+}
+.col-sm-5{
+    text-align: center;background-color: white;
+}
+.logo{
+    height: 100%;width: 100%;object-fit:fill;
+}
+h2{
+
+    color: coral;
+}
+.form_s{
+
+    margin-top: 3%;
+}
+#email{
+    background-color: cadetblue;border-radius: 5%;
+}
+#password{
+    background-color: cadetblue;border-radius: 5%;
+}
+#login{
+    background-color: cadetblue; 
+        color: white; 
+        border-radius: 30%;
+
+}
+#login:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
+  }
+#login_problem{
+    color: red;margin-top: 3%;
+}
+.col-12{
+    margin-top: 2.5%;
+}
+form{
+    margin-top: 20%;
+}
