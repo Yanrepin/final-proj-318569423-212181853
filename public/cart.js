@@ -30,32 +30,42 @@ $(document).ready(function() {
 
 
         async function bill(){                            //get the oreder from database of the user and show him the bill
-        var sum=0;
-        let email=firebase.auth().currentUser.email;                      
-        const washingtonRef = doc(db, "orders",email);
-        var data = await getDoc(washingtonRef);
+            var sum=0;
+            let email=firebase.auth().currentUser.email;                      
+            const washingtonRef = doc(db, "orders",email);
+            var data = await getDoc(washingtonRef);
 
-        var items=[]
-        var i = data.data().items;
-        i.forEach((item)=>{items.push(item);});
-        
-        var prices=[];
-        var p = data.data().price;
-        p.forEach((price)=>{prices.push(price);sum=parseFloat(sum)+parseFloat(price);});
-        sum=sum.toFixed(2);
-
-        for(i=0;i<items.length;i++)
-        {
-            if(i==0)
+            
+            var i = data.data().items;
+            if(i==undefined)                            //case the cart is empty
             {
-                $('#result').append("<br><br><br><br>");
+              $('#result').append("<br><br><br><br>");
+              $('#result').append("<h5>"+"YOUR CART IS EMPTY...."+"</h5><br>");
+              $('#result').append("<br><br><br><br>");
+              return;
+
             }
-            $('#result').append("<h5>"+items[i]+" =  $"+prices[i]+"</h5><br>");
+            var items=[];
+            i.forEach((item)=>{items.push(item);});
+            
+            var prices=[];
+            var p = data.data().price;
+            p.forEach((price)=>{prices.push(price);sum=parseFloat(sum)+parseFloat(price);});
+            sum=sum.toFixed(2);
 
-        }
-        $('#result').append("<h5>"+"__________"+"</h5><br>");
-        $('#result').append("<h5>"+"TOTAL AMOUNT: $"+sum+"</h5><br>");
+            for(i=0;i<items.length;i++)
+            {
+                if(i==0)
+                {
+                    $('#result').append("<br><br><br>");
+                }
+                $('#result').append("<h5>"+items[i]+" =  $"+prices[i]+"</h5><br>");
 
+            }
+            $('#result').append("<h5>"+"__________"+"</h5><br>");
+            $('#result').append("<h5>"+"TOTAL AMOUNT: $"+sum+"</h5><br><br>");
+
+            
         }
 
         
