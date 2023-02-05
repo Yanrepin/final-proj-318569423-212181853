@@ -23,18 +23,34 @@ import { getFirestore, doc, getDoc, getDocs, collection,updateDoc,arrayUnion,set
             // No user is signed in.
           }
         });
+
+        function validateEmail(email){                        //email check
+          return String(email).toLowerCase().match(
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+            );
+        };
   
           const reg_handler=async()=>{                        //handler with reg form , check values ,create user
-              const em=$('#email').val()
+              const em=$('#email').val();
               const pass=$("#password").val();
               const name=$("#full_name").val();
               const tel=$("#tel").val();
               if(em=="" || pass=="" || name=="" ||tel=="")
               {
-                  $("#maybe_error").html("<h5 style='color:red;'>some input is empty</h5><br>back to <a href='./index.html'>login</a>")
-  
+                  
+                  $("#maybe_error").html("<h5 style='color:red;'>some input is empty!</h5><br>back to <a href='./index.html'>login</a>");
+                  
+              }
+              if(validateEmail(em)==null)
+              {
+                console.log("false");
+                $("#maybe_error").html("<h5 style='color:red;'>email is not currect!</h5><br>back to <a href='./index.html'>login</a>");
               }
               else{
+                  var washingtonRef = doc(db, "orders",em);
+                  console.log(em);
+                  await setDoc(washingtonRef,{});
+
                   $("#maybe_error").html('back to <a href="./index.html">login</a>');
                   const us= await firebase.auth().createUserWithEmailAndPassword(em, pass)
                   .then((userCredential) => {
